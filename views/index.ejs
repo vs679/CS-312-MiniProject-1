@@ -60,15 +60,15 @@
         <div class="post">
           <h3><%= post.title %></h3>
           <p class="small">
-            By <%= post.name %> |
-            <%= post.createdAt.toLocaleString() %> |
+            By <%= post.creator_name %> |
+            <%= post.date_created ? new Date(post.date_created).toLocaleString() : 'Unknown Date' %> |
             <%= post.category %>
           </p>
 
-          <p class="content"><%= post.content %></p>
+          <p class="content"><%= post.body %></p>
 
           <div class="buttons">
-            <a href="/posts/<%= post.id %>/edit">Edit</a>
+            <a href="/posts/<%= post.blog_id %>/edit">Edit</a>
 
             <form action="/posts/<%= post.id %>/delete" method="POST">
               <button type="submit" class="delete">Delete</button>
