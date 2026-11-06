@@ -7,7 +7,7 @@ React + Vite frontend, Node.js/Express JSON API, and PostgreSQL database. Based 
 1. Install Node.js and PostgreSQL. Create PostgreSQL database **BlogDB** in pgAdmin.
 2. Run `db.sql` in the **BlogDB** database using pgAdmin Query Tool or `psql -U postgres -d BlogDB -f db.sql`. **Do not repeatedly run the sample data insertion file if you want to avoid duplicate blog entries.**
 3. In `backend/`, copy `.env.example` to `.env`, then set `PGPASSWORD` and a long random `SESSION_SECRET`.
-4. In one terminal: `cd backend && npm install && npm run dev` — API at http://localhost:8000.
+4. In one terminal: `cd backend && npm install && npm start` — API at http://localhost:8000.
 5. In another terminal: `cd frontend && npm install && npm run dev` — frontend at http://localhost:5173.
 6. Open http://localhost:5173. Sign in as **alex / alex123** (seeded demo account), or sign up.
 
