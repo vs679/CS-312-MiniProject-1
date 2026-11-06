@@ -19,19 +19,3 @@ React + Vite frontend, Node.js/Express JSON API, and PostgreSQL database. Based 
 - `GET /api/profile`
 
 The backend checks session authentication and post ownership before any write. Passwords are hashed in PostgreSQL with `pgcrypto` bcrypt; session cookies are httpOnly. Vite proxies `/api` to Express in development, so no extra CORS package is required.
-
-## Production build (local demonstration)
-
-Run `cd frontend && npm run build`. Then configure `NODE_ENV=production` in `backend/.env` and start backend with `npm start`. Express serves `frontend/dist` at http://localhost:8000. For real deployment use a persistent session store, HTTPS, a secure secret, and remove demo credentials.
-
-## Submission
-
-Publish the project to a **new public** `CS-312-MiniProject-4` GitHub repo; add repository URL and separate video URL to Canvas. Never commit `.env` or `node_modules`.
-
-## Testing checklist
-
-- Register, reject duplicate ID, sign in with correct/incorrect passwords, sign out.
-- Create a post, filter categories, reload to verify persistence.
-- Edit and delete your own post; confirm list updates without a page refresh.
-- Sign in as another user; verify that Edit/Delete buttons are hidden and direct API modifications fail.
-- Check phone-sized viewport and desktop browsers.
