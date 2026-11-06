@@ -1,26 +1,37 @@
-# CS 312 Blog App
+# CS-312 MiniProject-4 — React Blog Application
+
+React + Vite frontend, Node.js/Express JSON API, and PostgreSQL database. Based on the database schema and functionality from CS-312-MiniProject-1 (the MiniProject-3 repository was not accessible). Includes sign-up, sign-in, sign-out, creating posts, viewing/filtering posts, owner-only editing/deleting, responsive styles, and optional profile.
 
 ## Setup
 
-1. Install Node.js and PostgreSQL.
-2. Create a PostgreSQL database named `BlogDB` in pgAdmin.
-3. Open `BlogDB`'s Query Tool and run `db.sql` once to create and populate the tables. The script inserts **3 users and 5 posts**. (Rerunning the script would insert the 5 posts again.)
-4. Copy `.env.example` to `.env` and set your PostgreSQL password and a random `SESSION_SECRET`.
-5. Run:
+1. Install Node.js and PostgreSQL. Create PostgreSQL database **BlogDB** in pgAdmin.
+2. Run `db.sql` in the **BlogDB** database using pgAdmin Query Tool or `psql -U postgres -d BlogDB -f db.sql`. **Do not repeatedly run the sample data insertion file if you want to avoid duplicate blog entries.**
+3. In `backend/`, copy `.env.example` to `.env`, then set `PGPASSWORD` and a long random `SESSION_SECRET`.
+4. In one terminal: `cd backend && npm install && npm run dev` — API at http://localhost:8000.
+5. In another terminal: `cd frontend && npm install && npm run dev` — frontend at http://localhost:5173.
+6. Open http://localhost:5173. Sign in as **alex / alex123** (seeded demo account), or sign up.
 
-   ```bash
-   npm install
-   npm start
-   ```
+## API routes
 
-6. Open http://localhost:3000/signin.
+- `GET /api/auth/me`, `POST /api/auth/signup`, `POST /api/auth/signin`, `POST /api/auth/signout`
+- `GET /api/blogs?category=All`, `GET /api/blogs/:id`
+- `POST /api/blogs`, `PUT /api/blogs/:id`, `DELETE /api/blogs/:id`
+- `GET /api/profile`
 
-## Sample accounts
+The backend checks session authentication and post ownership before any write. Passwords are hashed in PostgreSQL with `pgcrypto` bcrypt; session cookies are httpOnly. Vite proxies `/api` to Express in development, so no extra CORS package is required.
 
-| User ID | Password |
-|---|---|
-| alex | alex123 |
-| jamie | jamie123 |
-| taylor | taylor123 |
+## Production build (local demonstration)
 
-The app keeps the existing category filter and allows signed-in users to create posts. Only the post's creator can edit or delete it. PostgreSQL stores the posts and users; a login session is stored in a session cookie. The session store uses Express's in-memory development store, so users sign in again if the server restarts.
+Run `cd frontend && npm run build`. Then configure `NODE_ENV=production` in `backend/.env` and start backend with `npm start`. Express serves `frontend/dist` at http://localhost:8000. For real deployment use a persistent session store, HTTPS, a secure secret, and remove demo credentials.
+
+## Submission
+
+Publish the project to a **new public** `CS-312-MiniProject-4` GitHub repo; add repository URL and separate video URL to Canvas. Never commit `.env` or `node_modules`.
+
+## Testing checklist
+
+- Register, reject duplicate ID, sign in with correct/incorrect passwords, sign out.
+- Create a post, filter categories, reload to verify persistence.
+- Edit and delete your own post; confirm list updates without a page refresh.
+- Sign in as another user; verify that Edit/Delete buttons are hidden and direct API modifications fail.
+- Check phone-sized viewport and desktop browsers.
